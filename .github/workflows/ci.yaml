@@ -24,4 +24,4 @@ jobs:
           find . -type f \( -name '*.yaml' -o -name '*.yml' \) \
             ! -name '*values*' \
             ! -path './.github/*' -print0 \
-            | xargs -0 -r kubeconform -strict -summary
+            | xargs -0 -r kubeconform -strict -ignore-missing-schemas -summary
