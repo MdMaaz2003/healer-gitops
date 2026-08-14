@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: demo-app
+          image: healer-demo-app:local
+          # CRITICAL: Tell K8s NOT to look in Docker Hub for this local image
+          imagePullPolicy: Never 
+          ports:
+            - containerPort: 8000
