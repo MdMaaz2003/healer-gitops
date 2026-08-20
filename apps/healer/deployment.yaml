@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healer-core
+  namespace: healer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: healer-core
+  template:
+    metadata:
+      labels:
+        app: healer-core
+    spec:
+      serviceAccountName: healer-core
+      containers:
+        - name: healer-core
+          image: healer-core:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 10
