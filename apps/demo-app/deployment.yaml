@@ -18,6 +18,5 @@ spec:
           image: healer-demo-app:local
           # CRITICAL: Tell K8s NOT to look in Docker Hub for this local image
           imagePullPolicy: Never
-          command: ["/bin/false"]
           ports:
             - containerPort: 8000
