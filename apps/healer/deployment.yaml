@@ -16,7 +16,7 @@ spec:
       serviceAccountName: healer-core
       containers:
         - name: healer-core
-          image: healer-core:latest
+          image: healer-core:v2
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
