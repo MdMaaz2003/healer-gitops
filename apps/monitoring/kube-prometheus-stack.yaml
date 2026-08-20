@@ -14,6 +14,25 @@ spec:
       values: |
         grafana:
           adminPassword: admin # Simple local password
+        alertmanager:
+          config:
+            global:
+              resolve_timeout: 5m
+            route:
+              group_by: ['namespace']
+              group_wait: 10s
+              group_interval: 10s
+              repeat_interval: 10m
+              receiver: 'healer-webhook'
+              routes:
+              - matchers:
+                - alertname = "KubePodCrashLooping"
+                receiver: 'healer-webhook'
+            receivers:
+            - name: 'healer-webhook'
+              webhook_configs:
+              - url: 'http://healer-core.healer.svc.cluster.local:80/alert'
+                send_resolved: true
         prometheus:
           prometheusSpec:
             retention: 2d # Keep 2 days of metrics locally
